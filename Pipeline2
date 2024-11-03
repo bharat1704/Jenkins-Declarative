@@ -40,7 +40,7 @@ pipeline {
         steps
         {
             echo "deploying the images"
-           sh "docker-compose"  
+           sh "docker-compose down && docker-compose up -d"  
             
         }
             
