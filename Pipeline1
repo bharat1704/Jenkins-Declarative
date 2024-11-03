@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    
+    stages{
+        
+        stage("code") {
+        steps
+        {
+        echo "cloning the code"
+            
+        }
+        
+        
+        }
+        
+        stage("build") {
+        steps    
+        {
+            echo "building the image"
+            
+        }
+        
+        }
+        
+        stage("push to Docker Hub") {
+        steps
+        {
+            echo "pushing the image to Docker hub"
+            
+        }
+            
+            
+        }
+        
+        stage("deploy") {
+        steps
+        {
+            echo "deploying the images"
+            
+        }
+            
+         }   
+        }
