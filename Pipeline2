@@ -1,0 +1,54 @@
+pipeline {
+    agent any
+    
+    stages{
+        
+        stage("code") {
+        steps
+        {
+        echo "cloning the code"
+        git url : "https://github.com/LondheShubham153/django-notes-app.git", branch: "main"    
+        }
+        
+        }
+        
+        stage("build") {
+        steps    
+        {
+            echo "building the image"
+            sh "docker build -t bharatnotes-app ."
+        }
+        
+        }
+        
+        stage("push to Docker Hub") {
+        steps
+        {
+            echo "pushing the image to Docker hub"
+            withCredentials([usernamePassword(credentialsId:"dockerhub", passwordVariable:"dockerhubPass",usernameVariable: "dockerhubUser")])
+        {
+               sh "docker tag bharatnotes-app ${env.dockerhubUser}/bharatnotes-app:latest"
+               sh "docker login -u ${env.dockerhubUser} -p ${dockerhubPasss} "
+               sh "docker push ${env.dockerhubUser}/bharatnotes-app:latest"
+                
+            }
+            }
+            
+        }
+        
+        stage("deploy") {
+        steps
+        {
+            echo "deploying the images"
+           sh "docker-compose"  
+            
+        }
+            
+            
+        }
+        
+        
+    }
+    
+    
+}
